@@ -1,0 +1,100 @@
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  org.bukkit.Bukkit
+ *  org.bukkit.command.CommandSender
+ *  org.bukkit.entity.Player
+ *  org.bukkit.plugin.Plugin
+ */
+package me.liwk.karhu.manager;
+
+import me.liwk.karhu.Karhu;
+import me.liwk.karhu.check.api.BanWaveX;
+import me.liwk.karhu.util.bungee.BungeeAPI;
+import me.liwk.karhu.util.task.Tasker;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
+import java.util.ArrayList;
+import java.util.UUID;
+
+public class WaveManager {
+    private final ArrayList<String> playersToBan = new ArrayList();
+    private boolean runningBanwave = false;
+    private int bans = 0;
+
+    public void importFromDb() {
+        this.playersToBan.clear();
+        this.playersToBan.addAll(Karhu.storage.getBanwaveList());
+    }
+
+    public void startBanwave() {
+        Tasker.taskAsync(() -> {
+            int max = this.playersToBan.size();
+            if (max > 0) {
+                if (!this.runningBanwave) {
+                    this.importFromDb();
+                }
+                this.runningBanwave = true;
+                ++this.bans;
+                String pre = this.playersToBan.get(0);
+                String player = pre.contains("-") ? this.findName(pre) : pre;
+                Bukkit.broadcastMessage((String)Karhu.getInstance().getConfigManager().getBanwaveCaught().replaceAll("%player%", player));
+                this.removeFromWave(pre);
+                String punish = Karhu.getInstance().getConfigManager().getBanwavePunish().replaceAll("%player%", player);
+                if (!Karhu.getInstance().getConfigManager().isBungeeCommand()) {
+                    Tasker.run(() -> Bukkit.getServer().dispatchCommand((CommandSender)Bukkit.getConsoleSender(), punish));
+                } else {
+                    Tasker.run(() -> BungeeAPI.sendCommand(punish));
+                }
+                Tasker.runTaskLaterAsync(this::startBanwave, 20L);
+            } else {
+                this.completeBanWave();
+            }
+        });
+    }
+
+    private String findName(String arg) {
+        Player target = Bukkit.getPlayer((UUID)UUID.fromString(arg));
+        return target != null ? target.getName() : Bukkit.getOfflinePlayer((UUID)UUID.fromString(arg)).getName();
+    }
+
+    public void completeBanWave() {
+        Bukkit.getScheduler().runTaskLaterAsynchronously((Plugin)Karhu.getInstance().getPlug(), () -> {
+            Bukkit.broadcastMessage((String)"");
+            Bukkit.broadcastMessage((String)Karhu.getInstance().getConfigManager().getBanwaveComplete().replaceAll("%bans%", String.valueOf(this.bans)));
+            Bukkit.broadcastMessage((String)"");
+            this.bans = 0;
+            this.runningBanwave = false;
+        }, 20L);
+    }
+
+    public void addToWave(String uuid, String check) {
+        if (!this.playersToBan.contains(uuid)) {
+            this.playersToBan.add(uuid);
+            BanWaveX bwRequest = new BanWaveX(uuid, check, 1, System.currentTimeMillis());
+            Karhu.getStorage().addToBanWave(bwRequest);
+        }
+    }
+
+    public void removeFromWave(String uuid) {
+        this.playersToBan.remove(uuid);
+        Karhu.getStorage().removeFromBanWave(uuid);
+    }
+
+    public ArrayList<String> getPlayersToBan() {
+        return this.playersToBan;
+    }
+
+    public int getBans() {
+        return this.bans;
+    }
+
+    public boolean isRunningBanwave() {
+        return this.runningBanwave;
+    }
+}
+
