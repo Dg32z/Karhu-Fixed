@@ -25,7 +25,9 @@ public final class BadPacketsA extends PacketCheck {
       if (packet instanceof FlyingEvent
          && (((FlyingEvent)packet).hasMoved() || ((FlyingEvent)packet).hasLooked())
          && Math.abs(((FlyingEvent)packet).getPitch()) > 90.0F
-         && !this.data.isPossiblyTeleporting()) {
+         && !this.data.isPossiblyTeleporting()
+         && !this.data.isOnBoat()
+         && !this.data.isExitingVehicle()) { //The pitch will > 90 when the player exiting boat at some time
          this.fail("* Improper pitch\n §f* P: §b" + this.format(0, Float.valueOf(((FlyingEvent)packet).getPitch())), this.getBanVL(), 110L);
       }
    }
