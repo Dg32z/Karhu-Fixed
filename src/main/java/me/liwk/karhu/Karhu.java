@@ -1,16 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.Bukkit
- *  org.bukkit.ChatColor
- *  org.bukkit.Chunk
- *  org.bukkit.World
- *  org.bukkit.event.Listener
- *  org.bukkit.plugin.Plugin
- *  org.bukkit.plugin.java.JavaPlugin
- *  org.bukkit.scheduler.BukkitRunnable
- */
 package me.liwk.karhu;
 
 import com.github.retrooper.packetevents.PacketEvents;
@@ -352,13 +339,11 @@ extends JavaPlugin {
     }
 
     public String getVersion() {
-        String version = "Base";
-        return version;
+        return "Base";
     }
 
     public String getBuild() {
-        String build = "2406017";
-        return build;
+        return "240630";
     }
 
     public boolean isViaRewind() {
