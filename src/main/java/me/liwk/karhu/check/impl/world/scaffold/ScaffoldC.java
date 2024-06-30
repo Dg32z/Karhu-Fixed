@@ -43,8 +43,8 @@ public final class ScaffoldC extends PacketCheck {
          Block block = Karhu.getInstance().getChunkManager().getChunkBlockAt(blockPos);
          if (block != null) {
             ItemStack stack = place.getItemStack() == null ? new ItemStack(Material.AIR) : place.getItemStack();
-            boolean additionable = block.getType() == stack.getType();
-            if (additionable && this.delay <= 8) {
+            boolean additional = block.getType() == stack.getType();
+            if (additional && this.delay <= 8) {
                if (this.delay == this.lastDelay) {
                   ++this.susClicks;
                }

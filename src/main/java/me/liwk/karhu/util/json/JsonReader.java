@@ -28,7 +28,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -44,7 +47,7 @@ public class JsonReader {
         request.setReadTimeout(4000);
         request.connect();
         JsonParser jp = new JsonParser();
-        JsonElement root = jp.parse((Reader)new InputStreamReader((InputStream)request.getContent()));
+        JsonElement root = jp.parse(new InputStreamReader((InputStream)request.getContent()));
         return root.getAsJsonObject();
     }
 
@@ -65,13 +68,13 @@ public class JsonReader {
             json.addProperty("license", ban.license);
             json.addProperty("karhu_version", ban.karhuVer);
             json.addProperty("server_version", ban.serverVer);
-            json.addProperty("tps", (Number)ban.tps);
+            json.addProperty("tps", ban.tps);
             json.addProperty("player", ban.player);
             json.addProperty("banned_for", ban.type);
             json.addProperty("client", ban.client);
             json.addProperty("time_played", ban.sessionTime);
             json.addProperty("coordinates", ban.coordinates);
-            json.addProperty("ping", (Number)ban.ping);
+            json.addProperty("ping", ban.ping);
             String[] paska = JsonReader.getHaste(ban);
             if (paska[0].length() > 1) {
                 try {
@@ -90,7 +93,7 @@ public class JsonReader {
             }
         }
         byte[] out = json.toString().getBytes(StandardCharsets.UTF_8);
-        try (OutputStream os = request.getOutputStream();){
+        try (OutputStream os = request.getOutputStream()){
             os.write(out);
             os.flush();
         }
@@ -98,7 +101,7 @@ public class JsonReader {
             var21.printStackTrace();
         }
         Gson gson = new Gson();
-        return (JsonObject)gson.fromJson((Reader)new InputStreamReader(request.getInputStream(), Charsets.UTF_8), JsonObject.class);
+        return gson.fromJson(new InputStreamReader(request.getInputStream(), Charsets.UTF_8), JsonObject.class);
     }
 
     public static String[] getData(String address) throws IOException {
@@ -120,7 +123,7 @@ public class JsonReader {
 
     private static String[] getHaste(BanData data) {
         Player target;
-        String uuid = Karhu.getInstance().getConfigManager().isCrackedServer() ? ((target = data.playerObj) != null ? target.getName() : data.player) : ((target = data.playerObj) != null ? target.getUniqueId().toString() : Bukkit.getOfflinePlayer((String)data.player).getUniqueId().toString());
+        String uuid = Karhu.getInstance().getConfigManager().isCrackedServer() ? ((target = data.playerObj) != null ? target.getName() : data.player) : ((target = data.playerObj) != null ? target.getUniqueId().toString() : Bukkit.getOfflinePlayer(data.player).getUniqueId().toString());
         List<ViolationX> vls = Karhu.storage.getAllViolations(uuid);
         if (vls.isEmpty()) {
             return new String[]{"", "Player has no logs!"};
@@ -128,7 +131,7 @@ public class JsonReader {
         StringBuilder end = new StringBuilder("Anticheat logs for player " + data.player + " pasted with " + Karhu.getInstance().getConfigManager().getName() + " " + Karhu.getInstance().getVersion());
         try {
             for (ViolationX v : vls) {
-                String logline = TextUtils.formatMillis(System.currentTimeMillis() - v.time) + " ago | " + ChatColor.stripColor((String)v.type).replaceAll("\n", " ") + " [" + ChatColor.stripColor((String)(v.data.replaceAll("\n", " ") + "] [" + v.ping + "ms]/[" + v.TPS + " TPS] (x" + v.vl + ")"));
+                String logline = TextUtils.formatMillis(System.currentTimeMillis() - v.time) + " ago | " + ChatColor.stripColor(v.type).replaceAll("\n", " ") + " [" + ChatColor.stripColor(v.data.replaceAll("\n", " ") + "] [" + v.ping + "ms]/[" + v.TPS + " TPS] (x" + v.vl + ")");
                 end.append("\n").append(logline);
             }
             return new String[]{end.toString(), "Pasted logs to: "};

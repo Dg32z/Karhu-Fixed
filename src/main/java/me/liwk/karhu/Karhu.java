@@ -120,7 +120,6 @@ extends JavaPlugin {
 
     public void onEnable() {
         Bukkit.getScheduler().runTaskLater(this, () -> {
-            String via;
             instance = this;
             this.plugin = this;
             ArrayList<String> no = new ArrayList<String>();
@@ -287,9 +286,6 @@ extends JavaPlugin {
         return Math.min(MathUtil.round(this.tps, 2), 20.0);
     }
 
-    public native String servers();
-
-    public native void dont();
 
     public void runTicks() {
         new BukkitRunnable(){

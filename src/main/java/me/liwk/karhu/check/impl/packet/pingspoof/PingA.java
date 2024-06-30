@@ -32,8 +32,8 @@ public final class PingA extends PacketCheck {
         } else if (packet instanceof FlyingEvent && this.kReceived) {
             if (!this.suspicious || this.data.getPing() <= this.data.getTransactionPing() + 200L) {
                 this.violations = Math.max(this.violations - 0.25, 0.0);
-            } else if (++this.violations >= 5.0) {
-                if (Math.abs(this.data.lastC0F - System.nanoTime()) > 1000000L) {
+            } else if (++this.violations >= 6.0) {
+                if (Math.abs(this.data.lastC0F - System.nanoTime()) > 1000000L) { //Fixed tran issue
                     return;
                 }
                 this.fail(

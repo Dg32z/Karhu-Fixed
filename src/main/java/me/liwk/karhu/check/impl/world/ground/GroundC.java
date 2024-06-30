@@ -28,7 +28,26 @@ extends PacketCheck {
             if (this.data.elapsed(this.data.getLastFlyTick()) <= 20 || this.data.getGameMode() == GameMode.CREATIVE) {
                 return;
             }
-            if (!(this.data.isOnClimbable() || this.data.isOnSlab() || this.data.isInsideBlock() || this.data.isOnStairs() || this.data.isOnBoat() || this.data.isInUnloadedChunk() || this.data.elapsed(this.data.getLastPossibleInUnloadedChunk()) <= 1 || this.data.isWasInUnloadedChunk() || this.data.isPossiblyTeleporting() || this.data.isOnSlime() || this.data.isGroundNearBox() || this.data.getPositionPackets() <= 60 || this.data.isRiding() || this.data.isWasOnSlime() || this.data.elapsed(this.data.getLastInLiquid()) <= 2 || this.data.isInWeb() || this.data.getLevitationLevel() != 0 || this.data.elapsed(this.data.getPredictionTicks()) < 1 || this.data.isWasInWeb() || this.data.isSpectating() || this.data.elapsed(this.data.getPlaceTicks()) <= Math.min(15, MathUtil.getPingInTicks(this.data.getTransactionPing() + 50L) + 5))) {
+            if (!(this.data.isOnClimbable()
+                    || this.data.isOnSlab()
+                    || this.data.isInsideBlock()
+                    || this.data.isOnStairs()
+                    || this.data.isOnBoat()
+                    || this.data.isInUnloadedChunk()
+                    || this.data.elapsed(this.data.getLastPossibleInUnloadedChunk()) <= 1
+                    || this.data.isWasInUnloadedChunk()
+                    || this.data.isPossiblyTeleporting()
+                    || this.data.isOnSlime()
+                    || this.data.isGroundNearBox()
+                    || this.data.getPositionPackets() <= 60
+                    || this.data.isRiding()
+                    || this.data.isWasOnSlime()
+                    || this.data.elapsed(this.data.getLastInLiquid()) <= 2
+                    || this.data.isInWeb()
+                    || this.data.getLevitationLevel() != 0
+                    || this.data.elapsed(this.data.getPredictionTicks()) < 1
+                    || this.data.isWasInWeb() || this.data.isSpectating()
+                    || this.data.elapsed(this.data.getPlaceTicks()) <= Math.min(15, MathUtil.getPingInTicks(this.data.getTransactionPing() + 50L) + 5))) {
                 double MAX = this.data.getClientAirTicks() < this.data.getAirTicks() / 3 ? 1.0 : 2.0;
                 boolean groundServer = groundDiff == 0.0;
                 boolean clientCollide = ((FlyingEvent)packet).isOnGround();

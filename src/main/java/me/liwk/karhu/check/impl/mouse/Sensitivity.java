@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package me.liwk.karhu.check.impl.mouse;
 
 import me.liwk.karhu.Karhu;
@@ -25,7 +22,6 @@ extends RotationCheck {
     private float lastDeltaPitch;
     public float pitchMode;
     public double sensPercent;
-    public float sensitivityY;
 
     public Sensitivity(KarhuPlayer data, Karhu karhu) {
         super(data, karhu);
