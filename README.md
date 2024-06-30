@@ -1,0 +1,1 @@
+Our main purpose for open sourcing this project is to help people deeply understand the unique checks and measures Karhu takes against cheaters. We do not intend to sell, reuse or profit in any way from Karhu’s code.
