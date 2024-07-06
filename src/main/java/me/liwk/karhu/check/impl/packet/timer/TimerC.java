@@ -53,6 +53,7 @@ extends PacketCheck {
                 }
             }
             this.lastFlyingPacket = now;
+            this.lastFlag = now;
         } else if (packet instanceof PositionEvent) {
             this.packets.add(150L);
         } else if (packet instanceof BlockPlaceEvent && this.data.getClientVersion().getProtocolVersion() > 754) {

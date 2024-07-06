@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package me.liwk.karhu.check.impl.world.block;
 
 import me.liwk.karhu.Karhu;

@@ -40,11 +40,11 @@ extends PacketCheck {
             if (this.data.getTransactionClock() != 0L && this.lastFlyingPacket == 0L) {
                 this.lastFlyingPacket = this.data.getTransactionClock() - 250000000L;
             }
-            long capLenght = Karhu.getInstance().getConfigManager().getTimerACapLenght() + MathUtil.toNanos(2000L);
+            long capLength = Karhu.getInstance().getConfigManager().getTimerACapLenght() + MathUtil.toNanos(2000L);
             long now = ((FlyingEvent)packet).getNanoTime();
             long delay = 50000000L - (now - this.lastFlyingPacket);
             long diff = Math.max(50000000L, now - this.lastFlyingPacket);
-            this.balance = Math.max(-capLenght, this.balance + delay);
+            this.balance = Math.max(-capLength, this.balance + delay);
             if (this.balance > 50000000L + MathUtil.toNanos(5L)) {
                 if (this.ready()) {
                     this.violations += 1.0;
@@ -62,7 +62,7 @@ extends PacketCheck {
             } else {
                 this.violations = Math.max(0.0, this.violations - 0.005);
             }
-            if (this.balance <= -capLenght) {
+            if (this.balance <= -capLength) {
                 this.capped = true;
             }
             this.lastFlyingPacket = now;
