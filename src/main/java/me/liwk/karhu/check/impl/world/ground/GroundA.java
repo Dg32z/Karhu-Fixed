@@ -32,7 +32,6 @@ extends PacketCheck {
             if (!(this.data.isOnGroundServer() || this.data.isWasOnComparator() || this.data.isOnComparator() || this.data.isOnLiquid() || this.data.isPossiblyTeleporting() || this.data.isOnGhostBlock() || this.data.isInUnloadedChunk() || this.data.isOnClimbable() || this.data.isSpectating() || this.data.isRiding() || this.data.isCollidedHorizontally())) {
                 this.noGroundTicks = this.data.isOnGroundPacket() && this.data.elapsed(this.data.getPlaceTicks()) > Math.min(15, MathUtil.getPingInTicks(this.data.getTransactionPing() + 50L) + 6) ? ++this.noGroundTicks : Math.max(this.noGroundTicks - 5, 0);
                 if (this.noGroundTicks >= 10) {
-                    double d;
                     this.violations += 1.0;
                     if (violations > 1.0) {
                         this.fail("ticks=" + this.noGroundTicks + " server=" + this.data.isOnGroundServer() + " client=" + this.data.isOnGroundPacket(), this.getBanVL(), 100L);

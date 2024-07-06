@@ -63,7 +63,7 @@ public final class ConfigManager {
     private String name;
     private String serverName;
     private double maxCps = 25.0;
-    private boolean reachTransaction = true;
+    private final boolean reachTransaction = true;
     private boolean reachCancel;
     private boolean hitboxCancel;
     private boolean triplehitBlock;
@@ -121,7 +121,7 @@ public final class ConfigManager {
     private double reachToFlag;
     private double reachBuffer;
     private double reachDecayPerMiss;
-    private int reachBackTrack = 3;
+    private final int reachBackTrack = 3;
     private boolean fixEat;
     private boolean flagNoWeb;
     private boolean flagNoSlow;
@@ -141,7 +141,7 @@ public final class ConfigManager {
     private boolean firstTime = true;
 
     public ConfigManager(JavaPlugin karhu) {
-        this.loadConfig((Plugin)karhu, false);
+        this.loadConfig(karhu, false);
         this.loadChecks(karhu, false);
     }
 
@@ -332,51 +332,51 @@ public final class ConfigManager {
         } else if (!silent) {
             Karhu.getInstance().printCool("&b> &fLoading file checks.yml");
         }
-        this.checks = YamlConfiguration.loadConfiguration((File)this.checkFile);
+        this.checks = YamlConfiguration.loadConfiguration(this.checkFile);
         if (!this.checks.isSet("PACKET.Timer.A.cap")) {
-            this.checks.set("PACKET.Timer.A.cap", (Object)10000);
+            this.checks.set("PACKET.Timer.A.cap", 10000);
         }
         if (!this.checks.isSet("COMBAT.AutoClicker.A.max-cps")) {
-            this.checks.set("COMBAT.AutoClicker.A.max-cps", (Object)25);
+            this.checks.set("COMBAT.AutoClicker.A.max-cps", 25);
         }
         if (!this.checks.isSet("COMBAT.Hitbox.A.cancel-out-box-hits")) {
-            this.checks.set("COMBAT.Hitbox.A.cancel-out-box-hits", (Object)false);
+            this.checks.set("COMBAT.Hitbox.A.cancel-out-box-hits", false);
         }
         if (!this.checks.isSet("COMBAT.Reach.A.cancel-reach-hits")) {
-            this.checks.set("COMBAT.Reach.A.cancel-reach-hits", (Object)false);
+            this.checks.set("COMBAT.Reach.A.cancel-reach-hits", false);
         }
         if (!this.checks.isSet("COMBAT.Reach.A.reach-to-flag")) {
-            this.checks.set("COMBAT.Reach.A.reach-to-flag", (Object)3.01);
+            this.checks.set("COMBAT.Reach.A.reach-to-flag", 3.01);
         }
         if (!this.checks.isSet("COMBAT.Reach.A.buffer")) {
-            this.checks.set("COMBAT.Reach.A.buffer", (Object)1.5);
+            this.checks.set("COMBAT.Reach.A.buffer", 1.5);
         }
         if (!this.checks.isSet("COMBAT.Reach.A.decay-per-miss")) {
-            this.checks.set("COMBAT.Reach.A.decay-per-miss", (Object)0.01);
+            this.checks.set("COMBAT.Reach.A.decay-per-miss", 0.01);
         }
         if (!this.checks.isSet("COMBAT.Reach.A.safe-mode")) {
-            this.checks.set("COMBAT.Reach.A.safe-mode", (Object)false);
+            this.checks.set("COMBAT.Reach.A.safe-mode", false);
         }
         if (!this.checks.isSet("COMBAT.Reach.A.remove-triple-hits")) {
-            this.checks.set("COMBAT.Reach.A.remove-triple-hits", (Object)true);
+            this.checks.set("COMBAT.Reach.A.remove-triple-hits", true);
         }
         if (!this.checks.isSet("MOVEMENT.Speed.A.fix-noslow-eat-shoot-glitch")) {
-            this.checks.set("MOVEMENT.Speed.A.fix-noslow-eat-shoot-glitch", (Object)false);
+            this.checks.set("MOVEMENT.Speed.A.fix-noslow-eat-shoot-glitch", false);
         }
         if (!this.checks.isSet("MOVEMENT.Speed.A.detect-noslow")) {
-            this.checks.set("MOVEMENT.Speed.A.detect-noslow", (Object)false);
+            this.checks.set("MOVEMENT.Speed.A.detect-noslow", false);
         }
         if (!this.checks.isSet("MOVEMENT.Speed.A.detect-noweb")) {
-            this.checks.set("MOVEMENT.Speed.A.detect-noweb", (Object)false);
+            this.checks.set("MOVEMENT.Speed.A.detect-noweb", false);
         }
         if (!this.checks.isSet("MOVEMENT.Speed.A.threshold-multiplier")) {
-            this.checks.set("MOVEMENT.Speed.A.threshold-multiplier", (Object)1.03);
+            this.checks.set("MOVEMENT.Speed.A.threshold-multiplier", 1.03);
         }
         if (!this.checks.isSet("MOVEMENT.Speed.B.threshold-multiplier")) {
-            this.checks.set("MOVEMENT.Speed.B.threshold-multiplier", (Object)1.0);
+            this.checks.set("MOVEMENT.Speed.B.threshold-multiplier", 1.0);
         }
         if (!this.checks.isSet("MOVEMENT.Speed.C.threshold-multiplier")) {
-            this.checks.set("MOVEMENT.Speed.C.threshold-multiplier", (Object)1.0);
+            this.checks.set("MOVEMENT.Speed.C.threshold-multiplier", 1.0);
         }
         this.maxCps = this.checks.getDouble("COMBAT.AutoClicker.A.max-cps");
         this.reachCancel = this.checks.getBoolean("COMBAT.Reach.A.cancel-reach-hits");
@@ -424,37 +424,37 @@ public final class ConfigManager {
         } else if (!silent) {
             Karhu.getInstance().printCool("&b> &fLoading file config.yml");
         }
-        this.config = YamlConfiguration.loadConfiguration((File)this.configFile);
+        this.config = YamlConfiguration.loadConfiguration(this.configFile);
         this.license = this.config.getString("license-key");
         if (!this.config.isSet("version-to-download")) {
-            this.config.set("version-to-download", (Object)"autoupdate");
+            this.config.set("version-to-download", "autoupdate");
         }
         if (!this.config.isSet("Prefix")) {
-            this.config.set("Prefix", (Object)"&7[&b&l\u2740&7] ");
+            this.config.set("Prefix", "&7[&b&l\u2740&7] ");
         }
         if (!this.config.isSet("MiscPrefix")) {
-            this.config.set("MiscPrefix", (Object)"&7[&6\u26a0&7] ");
+            this.config.set("MiscPrefix", "&7[&6\u26a0&7] ");
         }
         if (!this.config.isSet("AlertsMessage")) {
-            this.config.set("AlertsMessage", (Object)"&f%player% &7failed &b%check% &7[x&b%vl%&7]");
+            this.config.set("AlertsMessage", "&f%player% &7failed &b%check% &7[x&b%vl%&7]");
         }
         if (!this.config.isSet("ClientCheckMessage")) {
-            this.config.set("ClientCheckMessage", (Object)"&f%player% &7joined using &7[&e%brand%&7]");
+            this.config.set("ClientCheckMessage", "&f%player% &7joined using &7[&e%brand%&7]");
         }
         if (!this.config.isSet("experimental-alert-symbol")) {
-            this.config.set("experimental-alert-symbol", (Object)"&a\u0394");
+            this.config.set("experimental-alert-symbol", "&a\u0394");
         }
         if (!this.config.isSet("noautoban-alert-symbol")) {
-            this.config.set("noautoban-alert-symbol", (Object)"&c\u2260");
+            this.config.set("noautoban-alert-symbol", "&c\u2260");
         }
         if (!this.config.isSet("AntiCrashMessage")) {
-            this.config.set("AntiCrashMessage", (Object)"&e%player% &fwas kicked for &esuspicious activity &7(&6%debug%&7)");
+            this.config.set("AntiCrashMessage", "&e%player% &fwas kicked for &esuspicious activity &7(&6%debug%&7)");
         }
         if (!this.config.isSet("AlertsHoverableMessage")) {
-            this.config.set("AlertsHoverableMessage", (Object)"&7%info% (Ping: %ping% TPS: %tps%) &b(Click to teleport)");
+            this.config.set("AlertsHoverableMessage", "&7%info% (Ping: %ping% TPS: %tps%) &b(Click to teleport)");
         }
         if (!this.config.isSet("reset-violations-on-leave")) {
-            this.config.set("reset-violations-on-leave", (Object)true);
+            this.config.set("reset-violations-on-leave", true);
         }
         if (!this.config.isSet("PunishCommand")) {
             l = new ArrayList<String>();
@@ -487,178 +487,178 @@ public final class ConfigManager {
             this.config.set("Punishments.kickCommand", l);
         }
         if (!this.config.isSet("autoban")) {
-            this.config.set("autoban", (Object)true);
+            this.config.set("autoban", true);
         }
         if (!this.config.isSet("disallow-flags-after-punishment")) {
-            this.config.set("disallow-flags-after-punishment", (Object)true);
+            this.config.set("disallow-flags-after-punishment", true);
         }
         if (!this.config.isSet("alert-delay")) {
-            this.config.set("alert-delay", (Object)0L);
+            this.config.set("alert-delay", 0L);
         }
         if (!this.config.isSet("spigot-api-alert")) {
-            this.config.set("spigot-api-alert", (Object)true);
+            this.config.set("spigot-api-alert", true);
         }
         if (!this.config.isSet("hoverless-alert")) {
-            this.config.set("hoverless-alert", (Object)false);
+            this.config.set("hoverless-alert", false);
         }
         if (!this.config.isSet("cracked-server")) {
-            this.config.set("cracked-server", (Object)false);
+            this.config.set("cracked-server", false);
         }
         if (!this.config.isSet("anticrash.enabled")) {
-            this.config.set("anticrash.enabled", (Object)true);
+            this.config.set("anticrash.enabled", true);
         }
         if (!this.config.isSet("anticrash.move-spam")) {
-            this.config.set("anticrash.move-spam", (Object)true);
+            this.config.set("anticrash.move-spam", true);
         }
         if (!this.config.isSet("anticrash.place-spam")) {
-            this.config.set("anticrash.place-spam", (Object)true);
+            this.config.set("anticrash.place-spam", true);
         }
         if (!this.config.isSet("anticrash.large-move")) {
-            this.config.set("anticrash.large-move", (Object)true);
+            this.config.set("anticrash.large-move", true);
         }
         if (!this.config.isSet("anticrash.window-spam")) {
-            this.config.set("anticrash.window-spam", (Object)true);
+            this.config.set("anticrash.window-spam", true);
         }
         if (!this.config.isSet("anticrash.payload-spam")) {
-            this.config.set("anticrash.payload-spam", (Object)true);
+            this.config.set("anticrash.payload-spam", true);
         }
         if (!this.config.isSet("anticrash.arm-spam")) {
-            this.config.set("anticrash.window-spam", (Object)true);
+            this.config.set("anticrash.window-spam", true);
         }
         if (!this.config.isSet("anticrash.slot-spam")) {
-            this.config.set("anticrash.payload-spam", (Object)true);
+            this.config.set("anticrash.payload-spam", true);
         }
         if (!this.config.isSet("anticrash.kick-message")) {
-            this.config.set("anticrash.kick-message", (Object)"java.net.IOException Connection timed out: no further information");
+            this.config.set("anticrash.kick-message", "java.net.IOException Connection timed out: no further information");
         }
         if (!this.config.isSet("nethandler.enabled")) {
-            this.config.set("nethandler.enabled", (Object)false);
+            this.config.set("nethandler.enabled", false);
         }
         if (!this.config.isSet("nethandler.delay")) {
-            this.config.set("nethandler.delay", (Object)false);
+            this.config.set("nethandler.delay", false);
         }
         if (!this.config.isSet("nethandler.spoof")) {
-            this.config.set("nethandler.spoof", (Object)false);
+            this.config.set("nethandler.spoof", false);
         }
         if (!this.config.isSet("nethandler.transaction-order")) {
-            this.config.set("nethandler.transaction-order", (Object)"&c%player% &7ignored order of transactions &7first was &a%first% &7sent §c%sent%");
+            this.config.set("nethandler.transaction-order", "&c%player% &7ignored order of transactions &7first was &a%first% &7sent §c%sent%");
         }
         if (!this.config.isSet("nethandler.cancel-keepalives-alert")) {
-            this.config.set("nethandler.cancel-keepalives-alert", (Object)"&c%player% &7cancelled keepalive packets with total of &a%invalid% / %total%");
+            this.config.set("nethandler.cancel-keepalives-alert", "&c%player% &7cancelled keepalive packets with total of &a%invalid% / %total%");
         }
         if (!this.config.isSet("nethandler.cancel-transactions-alert")) {
-            this.config.set("nethandler.cancel-transactions-alert", (Object)"&c%player% &7cancelled transaction packets with total of &a%invalid% / %total%");
+            this.config.set("nethandler.cancel-transactions-alert", "&c%player% &7cancelled transaction packets with total of &a%invalid% / %total%");
         }
         if (!this.config.isSet("nethandler.own-keepalives-alert")) {
-            this.config.set("nethandler.own-keepalives-alert", (Object)"&c%player% &7sent own keepalives &7total of &a%invalid% / %total%");
+            this.config.set("nethandler.own-keepalives-alert", "&c%player% &7sent own keepalives &7total of &a%invalid% / %total%");
         }
         if (!this.config.isSet("nethandler.own-transactions-alert")) {
-            this.config.set("nethandler.own-transactions-alert", (Object)"&c%player% &7sent own transactions &7total of &a%invalid% / %total%");
+            this.config.set("nethandler.own-transactions-alert", "&c%player% &7sent own transactions &7total of &a%invalid% / %total%");
         }
         if (!this.config.isSet("nethandler.cancel-and-own-kick-message")) {
-            this.config.set("nethandler.cancel-and-own-kick-message", (Object)"java.net.IOException Connection timed out: no further information");
+            this.config.set("nethandler.cancel-and-own-kick-message", "java.net.IOException Connection timed out: no further information");
         }
         if (!this.config.isSet("nethandler.wrong-order-kick-message")) {
-            this.config.set("nethandler.wrong-order-kick-message", (Object)"Timed out (%first% != %received%)");
+            this.config.set("nethandler.wrong-order-kick-message", "Timed out (%first% != %received%)");
         }
         if (!this.config.isSet("pullback.enabled")) {
-            this.config.set("pullback.enabled", (Object)true);
+            this.config.set("pullback.enabled", true);
         }
         if (!this.config.isSet("pullback.type")) {
-            this.config.set("pullback.type", (Object)"generic");
+            this.config.set("pullback.type", "generic");
         }
         if (!this.config.isSet("default-version")) {
-            this.config.set("default-version", (Object)"1_8");
+            this.config.set("default-version", "1_8");
         }
         if (!this.config.isSet("bypass-permission")) {
-            this.config.set("bypass-permission", (Object)"true");
+            this.config.set("bypass-permission", "true");
         }
         if (!this.config.isSet("anticheat-name")) {
-            this.config.set("anticheat-name", (Object)"Karhu");
+            this.config.set("anticheat-name", "Karhu");
         }
         if (!this.config.isSet("server-name")) {
-            this.config.set("server-name", (Object)"Karhu");
+            this.config.set("server-name", "Karhu");
         }
         if (!this.config.isSet("geyser.stop-injecting-bedrock-players")) {
-            this.config.set("geyser.stop-injecting-bedrock-players", (Object)true);
+            this.config.set("geyser.stop-injecting-bedrock-players", true);
         }
         if (!this.config.isSet("geyser.check-for-name-prefix")) {
-            this.config.set("geyser.check-for-name-prefix", (Object)false);
+            this.config.set("geyser.check-for-name-prefix", false);
         }
         if (!this.config.isSet("geyser.name-prefix")) {
-            this.config.set("geyser.name-prefix", (Object)"*");
+            this.config.set("geyser.name-prefix", "*");
         }
         if (!this.config.isSet("packetevents.injectAsync")) {
-            this.config.set("packetevents.injectAsync", (Object)true);
+            this.config.set("packetevents.injectAsync", true);
         }
         if (!this.config.isSet("packetevents.ejectAsync")) {
-            this.config.set("packetevents.ejectAsync", (Object)true);
+            this.config.set("packetevents.ejectAsync", true);
         }
         if (!this.config.isSet("packetevents.injectEarly")) {
-            this.config.set("packetevents.injectEarly", (Object)true);
+            this.config.set("packetevents.injectEarly", true);
         }
         if (!this.config.isSet("packetevents.kickUninjected")) {
-            this.config.set("packetevents.kickUninjected", (Object)true);
+            this.config.set("packetevents.kickUninjected", true);
         }
         if (!this.config.isSet("packetevents.uninjected-kick-message")) {
-            this.config.set("packetevents.uninjected-kick-message", (Object)"&cWe've failed to load your data, please reconnect!");
+            this.config.set("packetevents.uninjected-kick-message", "&cWe've failed to load your data, please reconnect!");
         }
         if (!this.config.isSet("discord.enabled")) {
-            this.config.set("discord.enabled", (Object)true);
+            this.config.set("discord.enabled", true);
         }
         if (!this.config.isSet("ghostblock-support.enabled")) {
-            this.config.set("ghostblock-support.enabled", (Object)true);
+            this.config.set("ghostblock-support.enabled", true);
         }
         if (!this.config.isSet("ghostblock-support.lagback-on-walk")) {
-            this.config.set("ghostblock-support.lagback-on-walk", (Object)false);
+            this.config.set("ghostblock-support.lagback-on-walk", false);
         }
         if (!this.config.isSet("ghostblock-support.update-on-walk")) {
-            this.config.set("ghostblock-support.update-on-walk", (Object)true);
+            this.config.set("ghostblock-support.update-on-walk", true);
         }
         if (!this.config.isSet("ghostblock-support.liquid-dector")) {
-            this.config.set("ghostblock-support.liquid-dector", (Object)false);
+            this.config.set("ghostblock-support.liquid-dector", false);
         }
         if (!this.config.isSet("vehicle-handler.unmount")) {
-            this.config.set("vehicle-handler.unmount", (Object)false);
+            this.config.set("vehicle-handler.unmount", false);
         }
         if (!this.config.isSet("high-ping-kick.max-ping")) {
-            this.config.set("high-ping-kick.max-ping", (Object)1000);
+            this.config.set("high-ping-kick.max-ping", 1000);
         }
         if (!this.config.isSet("high-ping-kick.ping-over-max-ticks-before-kick")) {
-            this.config.set("high-ping-kick.ping-over-max-ticks-before-kick", (Object)250);
+            this.config.set("high-ping-kick.ping-over-max-ticks-before-kick", 250);
         }
         if (!this.config.isSet("high-ping-kick.enabled")) {
-            this.config.set("high-ping-kick.enabled", (Object)false);
+            this.config.set("high-ping-kick.enabled", false);
         }
         if (!this.config.isSet("high-ping-kick.kick-message")) {
-            this.config.set("high-ping-kick.kick-message", (Object)"Your ping constantly too high (over 1000ms), do something");
+            this.config.set("high-ping-kick.kick-message", "Your ping constantly too high (over 1000ms), do something");
         }
         if (!this.config.isSet("GuiHighlightColor")) {
-            this.config.set("GuiHighlightColor", (Object)"&l&b");
+            this.config.set("GuiHighlightColor", "&l&b");
         }
         if (!this.config.isSet("commands.logs.ban-color")) {
-            this.config.set("commands.logs.ban-color", (Object)"&c");
+            this.config.set("commands.logs.ban-color", "&c");
         }
         if (!this.config.isSet("commands.logs.ban-color")) {
-            this.config.set("commands.logs.ban-color", (Object)"&c");
+            this.config.set("commands.logs.ban-color", "&c");
         }
         if (!this.config.isSet("commands.logs.highlight-color")) {
-            this.config.set("commands.logs.highlight-color", (Object)"&b");
+            this.config.set("commands.logs.highlight-color", "&b");
         }
         if (!this.config.isSet("commands.no-permission")) {
-            this.config.set("commands.no-permission", (Object)"&cYou don''t have required permissions!");
+            this.config.set("commands.no-permission", "&cYou don''t have required permissions!");
         }
         if (!this.config.isSet("anti-vpn.enabled")) {
-            this.config.set("anti-vpn.enabled", (Object)true);
+            this.config.set("anti-vpn.enabled", true);
         }
         if (!this.config.isSet("anti-vpn.proxy-check")) {
-            this.config.set("anti-vpn.proxy-check", (Object)true);
+            this.config.set("anti-vpn.proxy-check", true);
         }
         if (!this.config.isSet("anti-vpn.malicious-check")) {
-            this.config.set("anti-vpn.malicious-check", (Object)true);
+            this.config.set("anti-vpn.malicious-check", true);
         }
         if (!this.config.isSet("anti-vpn.kick-message")) {
-            this.config.set("anti-vpn.kick-message", (Object)"&cUsage of VPN is prohibited!");
+            this.config.set("anti-vpn.kick-message", "&cUsage of VPN is prohibited!");
         }
         if (!this.config.isSet("anti-vpn.bypass")) {
             l = new ArrayList();
@@ -666,83 +666,83 @@ public final class ConfigManager {
             this.config.set("anti-vpn.bypass", l);
         }
         if (!this.config.isSet("client-check")) {
-            this.config.set("client-check", (Object)true);
+            this.config.set("client-check", true);
         }
         if (!this.config.isSet("Punishments.command-delay-seconds")) {
-            this.config.set("Punishments.command-delay-seconds", (Object)0L);
+            this.config.set("Punishments.command-delay-seconds", 0L);
         }
         if (!this.config.isSet("bungee.alerts")) {
-            this.config.set("bungee.alerts", (Object)false);
+            this.config.set("bungee.alerts", false);
         }
         if (!this.config.isSet("discord.send-alerts")) {
-            this.config.set("discord.send-alerts", (Object)true);
+            this.config.set("discord.send-alerts", true);
         }
         if (!this.config.isSet("discord.send-bans")) {
-            this.config.set("discord.send-bans", (Object)true);
+            this.config.set("discord.send-bans", true);
         }
         if (!this.config.isSet("bungee.alert-post-vl-rate")) {
-            this.config.set("bungee.alert-post-vl-rate", (Object)10);
+            this.config.set("bungee.alert-post-vl-rate", 10);
         }
         if (!this.config.isSet("server-lag-protection.max-tick-length")) {
-            this.config.set("server-lag-protection.max-tick-length", (Object)120L);
+            this.config.set("server-lag-protection.max-tick-length", 120L);
         }
         if (!this.config.isSet("server-lag-protection.warning-message")) {
-            this.config.set("server-lag-protection.warning-message", (Object)"%prefix% &c%player% &fwould've flagged, but server lagged within &c1 second&f.");
+            this.config.set("server-lag-protection.warning-message", "%prefix% &c%player% &fwould've flagged, but server lagged within &c1 second&f.");
         }
         if (!this.config.isSet("server-lag-protection.warning-display-type")) {
-            this.config.set("server-lag-protection.warning-display-type", (Object)"CONSOLE");
+            this.config.set("server-lag-protection.warning-display-type", "CONSOLE");
         }
         if (!this.config.isSet("async-kb-fix")) {
-            this.config.set("async-kb-fix", (Object)false);
+            this.config.set("async-kb-fix", false);
         }
         if (!this.config.isSet("join-exempt-ticks")) {
-            this.config.set("join-exempt-ticks", (Object)100);
+            this.config.set("join-exempt-ticks", 100);
         }
         if (!this.config.isSet("banwaves.punish")) {
-            this.config.set("banwaves.punish", (Object)"configurethis %player%");
+            this.config.set("banwaves.punish", "configurethis %player%");
         }
         if (!this.config.isSet("banwaves.messages.caught")) {
-            this.config.set("banwaves.messages.caught", (Object)"&b%player% &3has been caught in the &bBan Wave!");
+            this.config.set("banwaves.messages.caught", "&b%player% &3has been caught in the &bBan Wave!");
         }
         if (!this.config.isSet("banwaves.messages.complete")) {
-            this.config.set("banwaves.messages.complete", (Object)"&bKarhu &3has finished the banwave. A total of &b%bans% players &3were banned.");
+            this.config.set("banwaves.messages.complete", "&bKarhu &3has finished the banwave. A total of &b%bans% players &3were banned.");
         }
         if (!this.config.isSet("banwaves.broadcast-caught")) {
-            this.config.set("banwaves.broadcast-caught", (Object)true);
+            this.config.set("banwaves.broadcast-caught", true);
         }
         if (!this.config.isSet("banwaves.broadcast-complete")) {
-            this.config.set("banwaves.broadcast-complete", (Object)true);
+            this.config.set("banwaves.broadcast-complete", true);
         }
         if (!this.config.isSet("bungee.execute-ban-command-in-bungee")) {
-            this.config.set("bungee.execute-ban-command-in-bungee", (Object)false);
+            this.config.set("bungee.execute-ban-command-in-bungee", false);
         }
         if (!this.config.isSet("libs.mongo")) {
-            this.config.set("libs.mongo", (Object)true);
+            this.config.set("libs.mongo", true);
         }
         if (!this.config.isSet("libs.classindex")) {
-            this.config.set("libs.classindex", (Object)true);
+            this.config.set("libs.classindex", true);
         }
         if (!this.config.isSet("libs.fastutil")) {
-            this.config.set("libs.fastutil", (Object)true);
+            this.config.set("libs.fastutil", true);
         }
         if (!this.config.isSet("libs.fastutil-core")) {
-            this.config.set("libs.fastutil-core", (Object)true);
+            this.config.set("libs.fastutil-core", true);
         }
         if (!this.config.isSet("libs.sqlite")) {
-            this.config.set("libs.sqlite", (Object)true);
+            this.config.set("libs.sqlite", true);
         }
         if (!this.config.isSet("libs.gson")) {
-            this.config.set("libs.gson", (Object)true);
+            this.config.set("libs.gson", true);
         }
         if (!this.config.isSet("libs.apache-math3")) {
-            this.config.set("libs.apache-math3", (Object)true);
+            this.config.set("libs.apache-math3", true);
         }
         if (!this.config.isSet("karhu-whitelist-msg")) {
-            this.config.set("karhu-whitelist-msg", (Object)"This server is whitelisted!");
+            this.config.set("karhu-whitelist-msg", "This server is whitelisted!");
         }
         this.banwavePunish = this.config.getString("banwaves.punish", "configurethis %player%");
-        this.banwaveCaught = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("banwaves.messages.caught", "&b%player% &3has been caught in the &bBan Wave!"));
-        this.banwaveComplete = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("banwaves.messages.complete", "&bKarhu &3has finished the banwave. A total of &b%bans% players &3were banned."));
+        this.banwaveCaught = ChatColor.translateAlternateColorCodes('&', this.config.getString("banwaves.messages.caught", "&b%player% &3has been caught in the &bBan Wave!"));
+        this.banwaveComplete = ChatColor.translateAlternateColorCodes('&', this.config.getString("banwaves.messages.complete", "&bKarhu &3has finished the banwave. A total of &b%bans% players &3were banned."));
         this.brComplete = this.config.getBoolean("banwaves.broadcast-complete");
         this.brCaught = this.config.getBoolean("banwaves.broadcast-caught");
         this.bungeeCommand = this.config.getBoolean("bungee.execute-ban-command-in-bungee");
@@ -793,26 +793,26 @@ public final class ConfigManager {
         this.slotSpam = this.config.getBoolean("anticrash.slot-spam");
         this.armSpam = this.config.getBoolean("anticrash.arm-spam");
         this.payloadSpam = this.config.getBoolean("anticrash.payload-spam");
-        this.anticrashKickMsg = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("anticrash.kick-message"));
+        this.anticrashKickMsg = ChatColor.translateAlternateColorCodes('&', this.config.getString("anticrash.kick-message"));
         this.nethandler = this.config.getBoolean("nethandler.enabled");
         this.spoof = this.config.getBoolean("nethandler.spoof");
         this.delay = this.config.getBoolean("nethandler.delay");
-        this.cancelTransactions = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("nethandler.cancel-transactions-alert"));
-        this.cancelKeepalives = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("nethandler.cancel-keepalives-alert"));
-        this.ownTransactions = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("nethandler.own-transactions-alert"));
-        this.ownKeepalives = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("nethandler.own-keepalives-alert"));
-        this.transactionOrder = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("nethandler.transaction-order"));
-        this.orderKick = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("nethandler.wrong-order-kick-message"));
-        this.cancelOwnKick = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("nethandler.cancel-and-own-kick-message"));
+        this.cancelTransactions = ChatColor.translateAlternateColorCodes('&', this.config.getString("nethandler.cancel-transactions-alert"));
+        this.cancelKeepalives = ChatColor.translateAlternateColorCodes('&', this.config.getString("nethandler.cancel-keepalives-alert"));
+        this.ownTransactions = ChatColor.translateAlternateColorCodes('&', this.config.getString("nethandler.own-transactions-alert"));
+        this.ownKeepalives = ChatColor.translateAlternateColorCodes('&', this.config.getString("nethandler.own-keepalives-alert"));
+        this.transactionOrder = ChatColor.translateAlternateColorCodes('&', this.config.getString("nethandler.transaction-order"));
+        this.orderKick = ChatColor.translateAlternateColorCodes('&', this.config.getString("nethandler.wrong-order-kick-message"));
+        this.cancelOwnKick = ChatColor.translateAlternateColorCodes('&', this.config.getString("nethandler.cancel-and-own-kick-message"));
         this.vehicleHandler = this.config.getBoolean("vehicle-handler.unmount");
         this.pingKick = this.config.getBoolean("high-ping-kick.enabled");
         this.pingKickMaxPing = this.config.getInt("high-ping-kick.max-ping");
         this.pingKickTicks = this.config.getInt("high-ping-kick.ping-over-max-ticks-before-kick");
-        this.pingKickMsg = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("high-ping-kick.kick-message"));
+        this.pingKickMsg = ChatColor.translateAlternateColorCodes('&', this.config.getString("high-ping-kick.kick-message"));
         this.antivpn = this.config.getBoolean("anti-vpn.enabled");
         this.proxycheck = this.config.getBoolean("anti-vpn.proxy-check");
         this.maliciouscheck = this.config.getBoolean("anti-vpn.malicious-check");
-        this.antivpnKickMsg = ChatColor.translateAlternateColorCodes((char)'&', (String)this.config.getString("anti-vpn.kick-message"));
+        this.antivpnKickMsg = ChatColor.translateAlternateColorCodes('&', this.config.getString("anti-vpn.kick-message"));
         this.antiVpnBypass = this.config.getStringList("anti-vpn.bypass");
         this.clientCheck = this.config.getBoolean("client-check");
         this.injectEarly = this.config.getBoolean("packetevents.injectEarly");

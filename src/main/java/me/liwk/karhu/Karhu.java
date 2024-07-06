@@ -5,6 +5,7 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.util.TimeStampMode;
 import io.github.retrooper.packetevents.adventure.serializer.legacy.LegacyComponentSerializer;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
+import lombok.Getter;
 import me.liwk.karhu.api.KarhuLogger;
 import me.liwk.karhu.api.check.CheckState;
 import me.liwk.karhu.command.CommandAPI;
@@ -52,9 +53,11 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Getter
 public final class Karhu
 extends JavaPlugin {
     private IChunkManager chunkManager;
+    @Getter
     private static Karhu instance;
     private boolean isViaRewind;
     private boolean isViaVersion;
@@ -65,6 +68,7 @@ extends JavaPlugin {
     private ExecutorService antiVPNThread;
     private ExecutorService packetThread;
     private ExecutorService statsThread;
+    @Getter
     public static Storage storage;
     private ConfigManager configManager;
     private CheckState checkState;
@@ -73,7 +77,9 @@ extends JavaPlugin {
     private CommandFramework framework;
     private CommandManager1_19 commandManager;
     private NMSWorldProvider nmsWorldProvider;
+    @Getter
     public static ServerVersion SERVER_VERSION;
+    @Getter
     public static boolean PING_PONG_MODE;
     private double tps;
     public long tpsMilliseconds;
@@ -85,6 +91,7 @@ extends JavaPlugin {
     public long lastPerformanceAnnounce;
     private long serverTick;
     private static Boolean apiAvailability;
+    @Getter
     public static boolean crackedServer;
     public ThreadManager threadManager;
     public static double DIVISOR;
@@ -330,14 +337,6 @@ extends JavaPlugin {
         new LogsCommand(this.framework);
     }
 
-    public IChunkManager getChunkManager() {
-        return this.chunkManager;
-    }
-
-    public static Karhu getInstance() {
-        return instance;
-    }
-
     public String getVersion() {
         return "Base";
     }
@@ -360,118 +359,6 @@ extends JavaPlugin {
 
     public boolean isFloodgate() {
         return this.isFloodgate;
-    }
-
-    public ExecutorService getAlertsThread() {
-        return this.alertsThread;
-    }
-
-    public ExecutorService getDiscordThread() {
-        return this.discordThread;
-    }
-
-    public ExecutorService getAntiVPNThread() {
-        return this.antiVPNThread;
-    }
-
-    public ExecutorService getPacketThread() {
-        return this.packetThread;
-    }
-
-    public ExecutorService getStatsThread() {
-        return this.statsThread;
-    }
-
-    public static Storage getStorage() {
-        return storage;
-    }
-
-    public ConfigManager getConfigManager() {
-        return this.configManager;
-    }
-
-    public CheckState getCheckState() {
-        return this.checkState;
-    }
-
-    public PlayerDataManager getDataManager() {
-        return this.dataManager;
-    }
-
-    public AlertsManager getAlertsManager() {
-        return this.alertsManager;
-    }
-
-    public CommandFramework getFramework() {
-        return this.framework;
-    }
-
-    public CommandManager1_19 getCommandManager() {
-        return this.commandManager;
-    }
-
-    public NMSWorldProvider getNmsWorldProvider() {
-        return this.nmsWorldProvider;
-    }
-
-    public static ServerVersion getSERVER_VERSION() {
-        return SERVER_VERSION;
-    }
-
-    public static boolean isPING_PONG_MODE() {
-        return PING_PONG_MODE;
-    }
-
-    public long getTpsMilliseconds() {
-        return this.tpsMilliseconds;
-    }
-
-    public long getTicks() {
-        return this.ticks;
-    }
-
-    public long getLastTimeStamp() {
-        return this.lastTimeStamp;
-    }
-
-    public long getLastTick() {
-        return this.lastTick;
-    }
-
-    public long getLastPerformanceDrop() {
-        return this.lastPerformanceDrop;
-    }
-
-    public long getLastPerformanceAnnounce() {
-        return this.lastPerformanceAnnounce;
-    }
-
-    public long getServerTick() {
-        return this.serverTick;
-    }
-
-    public static boolean isCrackedServer() {
-        return crackedServer;
-    }
-
-    public ThreadManager getThreadManager() {
-        return this.threadManager;
-    }
-
-    public TransactionHandler getTransactionHandler() {
-        return this.transactionHandler;
-    }
-
-    public WaveManager getWaveManager() {
-        return this.waveManager;
-    }
-
-    public String getBungeeChannel() {
-        return this.bungeeChannel;
-    }
-
-    public LegacyComponentSerializer getComponentSerializer() {
-        return this.componentSerializer;
     }
 
     static {

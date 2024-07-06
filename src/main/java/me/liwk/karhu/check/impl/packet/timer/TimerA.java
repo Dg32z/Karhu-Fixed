@@ -21,8 +21,6 @@ extends PacketCheck {
     private long lastFlyingPacket;
     private long balance;
     private boolean capped;
-    private static final long TELEPORT_OFFSET = 50000000L;
-    private static final long FLYING_OFFSET = 50000000L;
 
     public TimerA(KarhuPlayer data, Karhu karhu) {
         super(data, karhu);

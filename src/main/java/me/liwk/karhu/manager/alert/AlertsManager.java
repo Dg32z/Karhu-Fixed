@@ -6,27 +6,21 @@
  */
 package me.liwk.karhu.manager.alert;
 
+import lombok.Getter;
 import me.liwk.karhu.Karhu;
 import me.liwk.karhu.util.task.Tasker;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 
+@Getter
 public final class AlertsManager {
-    private final Set<UUID> debugToggled = Collections.synchronizedSet(new HashSet());
-    private final Set<UUID> miscDebugToggled = Collections.synchronizedSet(new HashSet());
-    private final Set<UUID> alertsToggled = Collections.synchronizedSet(new HashSet());
-    private final Set<UUID> setbackToggled = Collections.synchronizedSet(new HashSet());
-    private final Set<UUID> mitigationToggled = Collections.synchronizedSet(new HashSet());
-    public static final List<UUID> ADMINS = Arrays.asList(UUID.fromString("bd290221-672c-49ef-a653-c8c7f6d4834c"), UUID.fromString("7595bacf-5daf-441c-bd52-92958d527155"), UUID.fromString("aa93f311-db03-4d43-9074-c5082571cb93"), UUID.fromString("4b7c9c57-b138-4045-b7ff-bed33b05ee0e"), UUID.fromString("5754ab81-482c-41b1-b4b6-c6359c23f4bb"));
-
-    public Set<UUID> getAlertsToggled() {
-        return this.alertsToggled;
-    }
-
-    public Set<UUID> getDebugToggled() {
-        return this.debugToggled;
-    }
+    private final Set<UUID> debugToggled = Collections.synchronizedSet(new HashSet<>());
+    private final Set<UUID> miscDebugToggled = Collections.synchronizedSet(new HashSet<>());
+    private final Set<UUID> alertsToggled = Collections.synchronizedSet(new HashSet<>());
+    private final Set<UUID> setbackToggled = Collections.synchronizedSet(new HashSet<>());
+    private final Set<UUID> mitigationToggled = Collections.synchronizedSet(new HashSet<>());
+    public static final List<UUID> ADMINS = Collections.singletonList(UUID.fromString("bd290221-672c-49ef-a653-c8c7f6d4834c"));
 
     public boolean hasDebugToggled(Player player) {
         return this.debugToggled.contains(player.getUniqueId());
@@ -97,10 +91,6 @@ public final class AlertsManager {
         }
     }
 
-    public Set<UUID> getMitigationToggled() {
-        return this.mitigationToggled;
-    }
-
     public boolean hasSetbackToggled(Player player) {
         return this.setbackToggled.contains(player.getUniqueId());
     }
@@ -113,12 +103,5 @@ public final class AlertsManager {
         return this.mitigationToggled.contains(player.getUniqueId());
     }
 
-    public Set<UUID> getSetbackToggled() {
-        return this.setbackToggled;
-    }
-
-    public Set<UUID> getMiscDebugToggled() {
-        return this.miscDebugToggled;
-    }
 }
 

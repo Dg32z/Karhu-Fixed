@@ -113,7 +113,7 @@ public final class MathUtil {
             ++i;
         }
 
-        stdDev /= (double)i;
+        stdDev /= i;
         return Math.sqrt(stdDev);
     }
 
@@ -153,7 +153,7 @@ public final class MathUtil {
     }
 
     public static double getEntropy(Collection<? extends Number> values) {
-        double n = (double)values.size();
+        double n = values.size();
         if (n < 2.0) {
             return Double.NaN;
         } else {
@@ -297,11 +297,11 @@ public final class MathUtil {
         Iterator var2 = list.iterator();
 
         while(var2.hasNext()) {
-            double i = (double)((Integer)var2.next()).intValue();
+            double i = ((Integer)var2.next()).intValue();
             Iterator var5 = list.iterator();
 
             while(var5.hasNext()) {
-                double ii = (double)((Integer)var5.next()).intValue();
+                double ii = ((Integer)var5.next()).intValue();
                 if (i == ii) {
                     ++amount;
                 }
@@ -317,7 +317,7 @@ public final class MathUtil {
 
         double z;
         for(Iterator statistic = numbers.iterator(); statistic.hasNext(); n0 += z / 2.0) {
-            z = (double)((Integer)statistic.next()).intValue();
+            z = ((Integer)statistic.next()).intValue();
         }
 
         double statistic = 0.0;
@@ -351,7 +351,7 @@ public final class MathUtil {
         return numbers.stream().mapToDouble(Number::doubleValue).toArray();
     }
 
-    public static final String format(int places, Object obj) {
+    public static String format(int places, Object obj) {
         return String.format("%." + places + "f", obj);
     }
 
@@ -374,7 +374,7 @@ public final class MathUtil {
     }
 
     public static <T> T firstNonNull(@Nullable T t, @Nullable T t2) {
-        return (T)(t != null ? t : t2);
+        return t != null ? t : t2;
     }
 
     public static <T> Queue<T> trim(Queue<T> queue, int n) {
@@ -399,7 +399,7 @@ public final class MathUtil {
     public static double getStandardDeviation(Collection<? extends Number> doubles) {
         double average = 0.0;
         double std = 0.0;
-        double size = (double)doubles.size();
+        double size = doubles.size();
 
         for(Number number : doubles) {
             average += number.doubleValue();
@@ -417,7 +417,7 @@ public final class MathUtil {
     public static double getStandardDeviation(double[] doubles) {
         double average = 0.0;
         double std = 0.0;
-        double size = (double)doubles.length;
+        double size = doubles.length;
 
         for(double number : doubles) {
             average += number;
@@ -453,7 +453,7 @@ public final class MathUtil {
 
     public static double getAverage(Collection<? extends Number> values) {
         double average = 0.0;
-        double size = (double)values.size();
+        double size = values.size();
 
         for(Number number : values) {
             average += number.doubleValue();
@@ -535,7 +535,7 @@ public final class MathUtil {
     }
 
     public static double getKurtosis2(Collection<Double> data) {
-        double size = (double)data.size();
+        double size = data.size();
         if (size < 3.0) {
             return Double.NaN;
         } else {
@@ -579,8 +579,8 @@ public final class MathUtil {
         double dz = (to.getZ() - from.getZ()) / (double)friction;
         if (data.isJumped()) {
             float f = to.yaw * (float) Math.PI / 180.0F;
-            dx += (double)(MathHelper.sin(f) * 0.2F);
-            dz -= (double)(MathHelper.cos(f) * 0.2F);
+            dx += MathHelper.sin(f) * 0.2F;
+            dz -= MathHelper.cos(f) * 0.2F;
         }
 
         dx -= data.deltas.lastDX;
@@ -594,12 +594,12 @@ public final class MathUtil {
         float friction = data.isLastOnGroundPacket() ? data.getCurrentFriction() : 0.91F;
         double dx = to.getX() - from.getX();
         double dz = to.getZ() - from.getZ();
-        dx /= (double)friction;
-        dz /= (double)friction;
+        dx /= friction;
+        dz /= friction;
         if (data.isJumped()) {
             float f = to.yaw * (float) Math.PI / 180.0F;
-            dx += (double)(MathHelper.sin(f) * 0.2F);
-            dz -= (double)(MathHelper.cos(f) * 0.2F);
+            dx += MathHelper.sin(f) * 0.2F;
+            dz -= MathHelper.cos(f) * 0.2F;
         }
 
         dx -= data.deltas.lastDX;
@@ -609,8 +609,8 @@ public final class MathUtil {
             return new float[]{0.0F, 0.0F};
         } else {
             move.normalize();
-            Vector angle = new Vector(-Math.sin(Math.toRadians((double)to.getYaw())), 0.0, Math.cos(Math.toRadians((double)to.getYaw())));
-            double degree = Math.toDegrees((double)angle.angle(move));
+            Vector angle = new Vector(-Math.sin(Math.toRadians(to.getYaw())), 0.0, Math.cos(Math.toRadians(to.getYaw())));
+            double degree = Math.toDegrees(angle.angle(move));
 
             for(int direction : FORWARD_DIRECTION) {
                 double diff = Math.abs((double)direction - degree);
@@ -663,7 +663,7 @@ public final class MathUtil {
         if (from != null && to != null) {
             double difX = to.getX() - from.getX();
             double difZ = to.getZ() - from.getZ();
-            return (double)((float)(FastMath.atan2(difZ, difX) * 180.0 / Math.PI - 90.0));
+            return (float)(FastMath.atan2(difZ, difX) * 180.0 / Math.PI - 90.0);
         } else {
             return 0.0;
         }
@@ -842,7 +842,7 @@ public final class MathUtil {
         if (from != null && to != null) {
             double difX = to.getX() - from.getX();
             double difZ = to.getZ() - from.getZ();
-            return (double)((float)(FastMath.atan2(difZ, difX) * 180.0 / Math.PI - 90.0));
+            return (float)(FastMath.atan2(difZ, difX) * 180.0 / Math.PI - 90.0);
         } else {
             return 0.0;
         }
@@ -852,7 +852,7 @@ public final class MathUtil {
         if (from != null && vector != null) {
             double difX = vector.getX() - from.getX();
             double difZ = vector.getZ() - from.getZ();
-            return (double)((float)(FastMath.atan2(difZ, difX) * 180.0 / Math.PI - 90.0));
+            return (float)(FastMath.atan2(difZ, difX) * 180.0 / Math.PI - 90.0);
         } else {
             return 0.0;
         }
@@ -861,7 +861,7 @@ public final class MathUtil {
     public static double getDirection(CustomLocation location, Vector vector) {
         double difX = vector.getX() - location.getX();
         double difZ = vector.getZ() - location.getZ();
-        return (double)((float)(FastMath.atan2(difZ, difX) * 180.0 / Math.PI - 90.0));
+        return (float)(FastMath.atan2(difZ, difX) * 180.0 / Math.PI - 90.0);
     }
 
     public static Vec3 getPositionEyes(double x, double y, double z, float eyeHeight) {
@@ -879,7 +879,7 @@ public final class MathUtil {
             float f1 = MathHelper.sin(-yaw * (float) (Math.PI / 180.0) - (float) Math.PI);
             float f2 = -MathHelper.cos(-pitch * (float) (Math.PI / 180.0));
             float f3 = MathHelper.sin(-pitch * (float) (Math.PI / 180.0));
-            return new Vec3((double)(f1 * f2), (double)f3, (double)(f * f2));
+            return new Vec3(f1 * f2, f3, f * f2);
         } else {
             float f = pitch * (float) (Math.PI / 180.0);
             float f1 = -yaw * (float) (Math.PI / 180.0);
@@ -887,7 +887,7 @@ public final class MathUtil {
             float f3 = MathHelper.sin(f1);
             float f4 = MathHelper.cos(f);
             float f5 = MathHelper.sin(f);
-            return new Vec3((double)(f3 * f4), (double)(-f5), (double)(f2 * f4));
+            return new Vec3(f3 * f4, -f5, f2 * f4);
         }
     }
 
@@ -906,7 +906,7 @@ public final class MathUtil {
         float f1 = MathHelper.sin(-yaw * (float) (Math.PI / 180.0) - (float) Math.PI);
         float f2 = -MathHelper.cos(-pitch * (float) (Math.PI / 180.0));
         float f3 = MathHelper.sin(-pitch * (float) (Math.PI / 180.0));
-        return new Vec3d((double)(f1 * f2), (double)f3, (double)(f * f2));
+        return new Vec3d(f1 * f2, f3, f * f2);
     }
 
     public static AxisAlignedBB getEntityBoundingBox(Location l) {
@@ -1048,7 +1048,7 @@ public final class MathUtil {
         }
 
         DecimalFormat twoDForm = new DecimalFormat(format.toString());
-        return Float.parseFloat(twoDForm.format((double)d).replaceAll(",", "."));
+        return Float.parseFloat(twoDForm.format(d).replaceAll(",", "."));
     }
 
     public static String parseVersion(ClientVersion ver) {
@@ -1139,14 +1139,14 @@ public final class MathUtil {
             total += val * val;
         }
 
-        return (float)FastMath.sqrt((double)total);
+        return (float)FastMath.sqrt(total);
     }
 
     public static float round(float value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
         } else {
-            BigDecimal bd = new BigDecimal((double)value);
+            BigDecimal bd = BigDecimal.valueOf(value);
             bd = bd.setScale(places, RoundingMode.HALF_UP);
             return bd.floatValue();
         }
@@ -1176,7 +1176,7 @@ public final class MathUtil {
         if (places < 0) {
             throw new IllegalArgumentException();
         } else {
-            BigDecimal bd = new BigDecimal((double)value);
+            BigDecimal bd = BigDecimal.valueOf(value);
             bd = bd.setScale(places, RoundingMode.HALF_UP);
             return bd.floatValue();
         }
@@ -1186,14 +1186,14 @@ public final class MathUtil {
         if (places < 0) {
             throw new IllegalArgumentException();
         } else {
-            BigDecimal bd = new BigDecimal((double)value);
+            BigDecimal bd = BigDecimal.valueOf(value);
             bd = bd.setScale(places, mode);
             return bd.floatValue();
         }
     }
 
     public static float round(float value) {
-        BigDecimal bd = new BigDecimal((double)value);
+        BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(0, RoundingMode.UP);
         return bd.floatValue();
     }
@@ -1317,7 +1317,7 @@ public final class MathUtil {
     }
 
     public static double[] multiply(double[] vector, double factor) {
-        double[] output = (double[])vector.clone();
+        double[] output = vector.clone();
         applyFunc(output, e -> e * factor);
         return output;
     }
@@ -1388,7 +1388,7 @@ public final class MathUtil {
 
     public static double getDistanceToGround(Player p) {
         Location loc = p.getLocation().clone();
-        double y = (double)loc.getBlockY();
+        double y = loc.getBlockY();
         double distance = 0.0;
 
         for(double i = y; i >= 0.0; --i) {
@@ -1421,10 +1421,10 @@ public final class MathUtil {
 
     public static Vector getDirection(float yaw, float pitch) {
         Vector vector = new Vector();
-        float radiansYaw = (float)Math.toRadians((double)yaw);
-        float radiansPitch = (float)Math.toRadians((double)pitch);
+        float radiansYaw = (float)Math.toRadians(yaw);
+        float radiansPitch = (float)Math.toRadians(pitch);
         vector.setY(-MathHelper.sin(radiansPitch));
-        double xz = (double)MathHelper.cos(radiansPitch);
+        double xz = MathHelper.cos(radiansPitch);
         vector.setX(-xz * (double)MathHelper.sin(radiansYaw));
         vector.setZ(xz * (double)MathHelper.cos(radiansYaw));
         return vector;

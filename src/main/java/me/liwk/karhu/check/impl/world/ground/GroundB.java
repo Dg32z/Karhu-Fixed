@@ -31,7 +31,6 @@ extends PacketCheck {
                 double MAX = this.data.elapsed(this.data.getPlaceTicks()) <= Math.min(15, MathUtil.getPingInTicks(this.data.getTransactionPing() + 50L) + 5) ? 5.0 : 4.25;
                 MAX += this.data.elapsed(this.data.getLastPacketDrop()) < 5 ? 2.0 : 1.25;
                 if (((FlyingEvent)packet).isOnGround()) {
-                    double d;
                     this.violations += 1.0;
                     if (violations > MAX) {
                         this.fail("* Spoofed ground status\n* CT: §b" + this.data.getClientAirTicks() + "\n* ST: §b" + this.data.getAirTicks() + "\n* UNLOADED: §b" + this.data.elapsed(this.data.getLastInUnloadedChunk()) + "\n* MOVE: §b" + this.data.getMoveTicks() + "\n* NOMOVE: §b" + this.data.getNoMoveTicks(), this.getBanVL(), 40L);

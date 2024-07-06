@@ -37,7 +37,7 @@ public final class ScaffoldB extends PacketCheck {
                || this.data.isPossiblyTeleporting()
                || this.data.isLagging(this.data.getTotalTicks())) {
                this.violations = Math.max(this.violations - 0.35, 0.0);
-            } else if (++this.violations > 3.0) {
+            } else if (++this.violations > 5.0) {
                this.fail("* Post swing\n §f* D §b" + delay, this.getBanVL(), 60000L);
             }
 

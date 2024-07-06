@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package me.liwk.karhu.check.impl.world.ground;
 
 import com.github.retrooper.packetevents.protocol.player.GameMode;
@@ -52,9 +49,8 @@ extends PacketCheck {
                 boolean groundServer = groundDiff == 0.0;
                 boolean clientCollide = ((FlyingEvent)packet).isOnGround();
                 if (clientCollide != groundServer && this.data.getAirTicks() > 2) {
-                    double d = this.violations;
-                    this.violations = d + 1.0;
-                    if (d > MAX) {
+                    violations = violations + 1.0;
+                    if (violations > MAX) {
                         this.fail("* Spoofed ground status\n §f* ST/CT: §b" + this.data.getAirTicks() + " | " + this.data.getClientAirTicks() + "\n §f* MG/CG: §b" + groundServer + " | " + clientCollide + "\n §f* difference: §b" + groundDiff, this.getBanVL(), 50L);
                     }
                 } else {
