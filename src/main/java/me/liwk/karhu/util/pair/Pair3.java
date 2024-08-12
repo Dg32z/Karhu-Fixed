@@ -1,41 +1,14 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package me.liwk.karhu.util.pair;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+@AllArgsConstructor
 public class Pair3<X, Y, Z> {
-    private X x;
-    private Y y;
-    private Z z;
-
-    public void setX(X x) {
-        this.x = x;
-    }
-
-    public void setY(Y y) {
-        this.y = y;
-    }
-
-    public void setZ(Z z) {
-        this.z = z;
-    }
-
-    public X getX() {
-        return this.x;
-    }
-
-    public Y getY() {
-        return this.y;
-    }
-
-    public Z getZ() {
-        return this.z;
-    }
-
-    public Pair3(X x, Y y, Z z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
+   private X x;
+   private Y y;
+   private Z z;
 }
-

@@ -1,15 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  it.unimi.dsi.fastutil.longs.Long2ObjectMap
- *  it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap
- *  org.bukkit.Bukkit
- *  org.bukkit.Chunk
- *  org.bukkit.Location
- *  org.bukkit.World
- *  org.bukkit.block.Block
- */
 package me.liwk.karhu.world.chunk;
 
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
@@ -30,24 +18,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-public final class WorldChunkManager
-implements IChunkManager {
-    private final Map<World, Long2ObjectMap<Chunk>> loadedChunks = new HashMap<World, Long2ObjectMap<Chunk>>();
+public final class WorldChunkManager implements IChunkManager {
+    private final Map<World, Long2ObjectMap<Chunk>> loadedChunks = new HashMap<>();
     private long lastAskTick;
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public void onChunkLoad(Chunk chunk) {
         synchronized (this.loadedChunks) {
-            this.loadedChunks.computeIfAbsent(chunk.getWorld(), k -> new Long2ObjectOpenHashMap()).put(BlockUtil.getChunkPair(chunk), chunk);
+            this.loadedChunks.computeIfAbsent(chunk.getWorld(), k -> new Long2ObjectOpenHashMap<>()).put(BlockUtil.getChunkPair(chunk), chunk);
         }
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public void removeWorld(World world) {
         synchronized (this.loadedChunks) {
@@ -55,22 +36,16 @@ implements IChunkManager {
         }
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public void onChunkUnload(Chunk chunk) {
         synchronized (this.loadedChunks) {
-            Map chunkMap = this.loadedChunks.get(chunk.getWorld());
+            Map<Long, Chunk> chunkMap = this.loadedChunks.get(chunk.getWorld());
             if (chunkMap != null) {
                 chunkMap.remove(BlockUtil.getChunkPair(chunk));
             }
         }
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public void unloadAll() {
         synchronized (this.loadedChunks) {
@@ -78,23 +53,19 @@ implements IChunkManager {
         }
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public Block getChunkBlockAt(Location location) {
         synchronized (this.loadedChunks) {
             World world = location.getWorld();
             Conditions.notNull(world, "location world cannot be null");
-            Long2ObjectMap chunkMap = this.loadedChunks.computeIfAbsent(world, k -> new Long2ObjectOpenHashMap());
+            Long2ObjectMap<Chunk> chunkMap = this.loadedChunks.computeIfAbsent(world, k -> new Long2ObjectOpenHashMap<>());
             if (chunkMap.isEmpty()) {
                 return null;
             }
-            Chunk chunk = (Chunk)chunkMap.get(BlockUtil.getChunkPair(location));
+            Chunk chunk = chunkMap.get(BlockUtil.getChunkPair(location));
             if (chunk != null) {
-                boolean invalidCoord;
                 int blockY = location.getBlockY();
-                boolean bl = invalidCoord = blockY > world.getMaxHeight() || blockY < 0;
+                boolean invalidCoord = blockY > world.getMaxHeight() || blockY < 0;
                 if (Karhu.SERVER_VERSION.isNewerThanOrEquals(ServerVersion.V_1_13) && invalidCoord) {
                     return location.getBlock();
                 }
@@ -109,12 +80,10 @@ implements IChunkManager {
             }
             this.lastAskTick = Karhu.getInstance().getServerTick();
             return null;
+
         }
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public int getCacheSize(World world) {
         synchronized (this.loadedChunks) {
@@ -122,40 +91,33 @@ implements IChunkManager {
         }
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public boolean isChunkLoaded(Location l) {
         synchronized (this.loadedChunks) {
-            boolean empty;
             World world = l.getWorld();
             Conditions.notNull(world, "location world cannot be null");
             Long2ObjectMap<Chunk> chunkMap = this.loadedChunks.get(world);
             boolean invalid = chunkMap == null;
-            boolean bl = empty = !invalid && chunkMap.isEmpty();
+            boolean empty = !invalid && chunkMap.isEmpty();
             if (!invalid && !empty) {
-                // MONITOREXIT @DISABLED, blocks:[0, 1, 3] lbl10 : MonitorExitStatement: MONITOREXIT : var2_2
                 Chunk chunk = chunkMap.get(BlockUtil.getChunkPair(l));
                 return chunk != null && chunk.isLoaded();
+            } else {
+                return world.isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4);
             }
-            return world.isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4);
         }
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public void getChunk(Location location, Callback<Chunk> chunkCallback) {
         synchronized (this.loadedChunks) {
             World world = location.getWorld();
             Conditions.notNull(world, "location world cannot be null");
-            Long2ObjectMap chunkMap = this.loadedChunks.computeIfAbsent(world, k -> new Long2ObjectOpenHashMap());
+            Long2ObjectMap<Chunk> chunkMap = this.loadedChunks.computeIfAbsent(world, k -> new Long2ObjectOpenHashMap<>());
             if (chunkMap.isEmpty()) {
                 this.somethingTriedDoingSomethingStupidErrorMessage(world);
             } else {
-                Chunk chunk = (Chunk)chunkMap.get(BlockUtil.getChunkPair(location));
+                Chunk chunk = chunkMap.get(BlockUtil.getChunkPair(location));
                 if (chunk != null) {
                     chunkCallback.call(chunk);
                 }
@@ -168,13 +130,10 @@ implements IChunkManager {
         return this.loadedChunks;
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public void addWorld(World world) {
         synchronized (this.loadedChunks) {
-            this.loadedChunks.computeIfAbsent(world, k -> new Long2ObjectOpenHashMap());
+            this.loadedChunks.computeIfAbsent(world, k -> new Long2ObjectOpenHashMap<>());
         }
     }
 
@@ -186,4 +145,3 @@ implements IChunkManager {
         }
     }
 }
-

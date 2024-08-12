@@ -1,9 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.plugin.java.JavaPlugin
- */
 package me.liwk.karhu.util;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,28 +13,27 @@ public class NetUtil {
     public static void sleep(long time) {
         try {
             Thread.sleep(time);
-        }
-        catch (Throwable throwable) {
-            // empty catch block
+        } catch (Throwable var3) {
         }
     }
 
-    public static void close(AutoCloseable ... closeables) {
+    public static void close(AutoCloseable... closeables) {
         try {
             for (AutoCloseable closeable : closeables) {
-                if (closeable == null) continue;
-                closeable.close();
+                if (closeable != null) {
+                    closeable.close();
+                }
             }
-        }
-        catch (Exception var5) {
+        } catch (Exception var5) {
             var5.printStackTrace();
         }
     }
 
+
     public static void download(File file, String from) throws Exception {
-        try (FileOutputStream out = new FileOutputStream(file);){
+        try (FileOutputStream out = new FileOutputStream(file)) {
             out.getChannel().transferFrom(Channels.newChannel(new URL(from).openStream()), 0L, Long.MAX_VALUE);
         }
     }
-}
 
+}

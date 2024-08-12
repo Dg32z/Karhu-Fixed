@@ -1,65 +1,24 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.Material
- *  org.bukkit.util.Vector
- */
 package me.liwk.karhu.util.pending;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import org.bukkit.Material;
 import org.bukkit.util.Vector;
 
-public class BlockPlacePending
-implements Cloneable {
-    public Vector blockPosition;
-    public int face;
-    public long serverTick;
-    public Material item;
+@Setter
+@Getter
+@AllArgsConstructor
+public class BlockPlacePending implements Cloneable {
+   public Vector blockPosition;
+   public int face;
+   public long serverTick;
+   public Material item;
 
-    @SneakyThrows
-    public BlockPlacePending clone() {
-        return (BlockPlacePending)super.clone();
-    }
+   @SneakyThrows
+   public BlockPlacePending clone() {
+       return (BlockPlacePending)super.clone();
+   }
 
-    public void setBlockPosition(Vector blockPosition) {
-        this.blockPosition = blockPosition;
-    }
-
-    public void setFace(int face) {
-        this.face = face;
-    }
-
-    public void setServerTick(long serverTick) {
-        this.serverTick = serverTick;
-    }
-
-    public void setItem(Material item) {
-        this.item = item;
-    }
-
-    public Vector getBlockPosition() {
-        return this.blockPosition;
-    }
-
-    public int getFace() {
-        return this.face;
-    }
-
-    public long getServerTick() {
-        return this.serverTick;
-    }
-
-    public Material getItem() {
-        return this.item;
-    }
-
-    public BlockPlacePending(Vector blockPosition, int face, long serverTick, Material item) {
-        this.blockPosition = blockPosition;
-        this.face = face;
-        this.serverTick = serverTick;
-        this.item = item;
-    }
 }
-

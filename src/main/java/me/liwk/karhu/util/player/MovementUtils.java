@@ -1,13 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.Location
- *  org.bukkit.enchantments.Enchantment
- *  org.bukkit.entity.Player
- *  org.bukkit.inventory.ItemStack
- *  org.bukkit.util.Vector
- */
 package me.liwk.karhu.util.player;
 
 import org.bukkit.Location;
@@ -31,21 +21,23 @@ public class MovementUtils {
 
     public static int getDepthStriderLevel(Player player) {
         if (player.getInventory().getBoots() != null) {
-            Enchantment enchLegacy = Enchantment.getByName((String)"DEPTH_STRIDER");
-            Enchantment enchModern = Enchantment.getByName((String)"depth_strider");
-            if (enchLegacy != null && MovementUtils.hasEnchantment(player.getInventory().getBoots(), enchLegacy)) {
-                return (Integer)player.getInventory().getBoots().getEnchantments().get(enchLegacy);
+            Enchantment enchLegacy = Enchantment.getByName("DEPTH_STRIDER");
+            Enchantment enchModern = Enchantment.getByName("depth_strider");
+            if (enchLegacy != null && hasEnchantment(player.getInventory().getBoots(), enchLegacy)) {
+                return player.getInventory().getBoots().getEnchantments().get(enchLegacy);
             }
-            if (enchModern != null && MovementUtils.hasEnchantment(player.getInventory().getBoots(), enchModern)) {
-                return (Integer)player.getInventory().getBoots().getEnchantments().get(enchModern);
+
+            if (enchModern != null && hasEnchantment(player.getInventory().getBoots(), enchModern)) {
+                return player.getInventory().getBoots().getEnchantments().get(enchModern);
             }
         }
+
         return 0;
     }
 
     public static int getSoulSpeedLevel(Player player) {
-        if (player.getInventory().getBoots() != null && MovementUtils.hasEnchantment(player.getInventory().getBoots(), Enchantment.getByName((String)"SOUL_SPEED"))) {
-            return (Integer)player.getInventory().getBoots().getEnchantments().get(Enchantment.getByName((String)"SOUL_SPEED"));
+        if (player.getInventory().getBoots() != null && hasEnchantment(player.getInventory().getBoots(), Enchantment.getByName("SOUL_SPEED"))) {
+            return player.getInventory().getBoots().getEnchantments().get(Enchantment.getByName("SOUL_SPEED"));
         }
         return 0;
     }
@@ -56,9 +48,11 @@ public class MovementUtils {
 
     public static boolean searchEnchant(Player player, Enchantment enchantment) {
         for (ItemStack stack : player.getInventory()) {
-            if (stack == null || stack.getEnchantments().isEmpty() || !stack.getEnchantments().containsKey(enchantment)) continue;
-            return true;
+            if (stack != null && !stack.getEnchantments().isEmpty() && stack.getEnchantments().containsKey(enchantment)) {
+                return true;
+            }
         }
+
         return false;
     }
 
@@ -66,4 +60,3 @@ public class MovementUtils {
         return item.getEnchantmentLevel(enchantment);
     }
 }
-

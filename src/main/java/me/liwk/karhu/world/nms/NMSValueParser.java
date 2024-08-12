@@ -27,7 +27,7 @@ public final class NMSValueParser {
     public static void parse(KarhuPlayer data) {
         data.setLastJumpMovementFactor(data.getJumpMovementFactor());
         data.setJumpMovementFactor(data.getSpeedInAir());
-        data.setJumpMovementFactor(data.isWasSprinting() ? (float)((double)data.getJumpMovementFactor() + 0.005999999865889549) : data.getJumpMovementFactor());
+        data.setJumpMovementFactor(data.isWasSprinting() ? (float) ((double) data.getJumpMovementFactor() + 0.005999999865889549) : data.getJumpMovementFactor());
         float attri = data.getWalkSpeed();
         if (data.isSprinting()) {
             attri += attri * 0.3F;
@@ -36,7 +36,7 @@ public final class NMSValueParser {
         data.setLastAttributeSpeed(data.getAttributeSpeed());
         data.setAttributeSpeed(attri);
         double jumpMotion = 0.42F;
-        jumpMotion += (float)data.getJumpBoost() * 0.1F;
+        jumpMotion += (float) data.getJumpBoost() * 0.1F;
         double difference = data.deltas.motionY - jumpMotion;
         data.setJumpedLastTick(data.isJumpedCurrentTick());
         data.setJumpedCurrentTick(
@@ -133,7 +133,7 @@ public final class NMSValueParser {
             float f2 = 0.02F;
             float f3;
             if (data.getDepthStriderLevel() > 0) {
-                f3 = (float)data.getDepthStriderLevel();
+                f3 = (float) data.getDepthStriderLevel();
             } else {
                 f3 = 0.0F;
             }
@@ -148,7 +148,7 @@ public final class NMSValueParser {
 
             if (f3 > 0.0F) {
                 f1 += (0.54600006F - f1) * f3 / 3.0F;
-                f2 += (data.getWalkSpeed() - f2) * f3 / 3.0F;
+                f2 += (data.getWalkSpeed() * 1.0F - f2) * f3 / 3.0F;
             }
 
             if (data.getDolphinLevel() > 0) {
@@ -185,7 +185,7 @@ public final class NMSValueParser {
             float f2 = 0.02F;
             float f3;
             if (data.getDepthStriderLevel() > 0) {
-                f3 = (float)data.getDepthStriderLevel();
+                f3 = (float) data.getDepthStriderLevel();
             } else {
                 f3 = 0.0F;
             }
@@ -200,7 +200,7 @@ public final class NMSValueParser {
 
             if (f3 > 0.0F) {
                 f1 += (0.54600006F - f1) * f3 / 3.0F;
-                f2 += (data.getWalkSpeed() - f2) * f3 / 3.0F;
+                f2 += (data.getWalkSpeed() * 1.0F - f2) * f3 / 3.0F;
             }
 
             if (data.getDolphinLevel() > 0) {
@@ -214,10 +214,10 @@ public final class NMSValueParser {
     public static double loopKeys(KarhuPlayer data) {
         double maxSpeed = Double.MIN_VALUE;
 
-        for(int strafe = 1; strafe >= -1; --strafe) {
-            for(int forward = 1; forward >= -1; --forward) {
-                float currentStrafe = (float)strafe * 0.98F;
-                float currentForward = (float)forward * 0.98F;
+        for (int strafe = 1; strafe >= -1; --strafe) {
+            for (int forward = 1; forward >= -1; --forward) {
+                float currentStrafe = (float) strafe * 0.98F;
+                float currentForward = (float) forward * 0.98F;
                 double moveFlying = moveFlying(data, currentStrafe, currentForward, true);
                 if (moveFlying > maxSpeed) {
                     maxSpeed = moveFlying;
@@ -233,10 +233,10 @@ public final class NMSValueParser {
         double x = kbX;
         double z = kbZ;
 
-        for(float[] floats : KEY_COMBOS) {
-            for(boolean sprint : BOOLEANS) {
-                for(boolean blocking : BOOLEANS_REVERSED) {
-                    for(boolean jumped : BOOLEANS_REVERSED) {
+        for (float[] floats : KEY_COMBOS) {
+            for (boolean sprint : BOOLEANS) {
+                for (boolean blocking : BOOLEANS_REVERSED) {
+                    for (boolean jumped : BOOLEANS_REVERSED) {
                         float strafe = floats[0];
                         float forward = floats[1];
                         if (jumped && sprint) {
@@ -246,8 +246,8 @@ public final class NMSValueParser {
                         }
 
                         if (data.isWasSneaking()) {
-                            strafe = (float)((double)strafe * 0.3);
-                            forward = (float)((double)forward * 0.3);
+                            strafe = (float) ((double) strafe * 0.3);
+                            forward = (float) ((double) forward * 0.3);
                         }
 
                         if (blocking) {
@@ -259,8 +259,8 @@ public final class NMSValueParser {
                         forward *= 0.98F;
                         Pair<Float, Float> xzPair = moveFlyingPair(data, strafe, forward, sprint);
                         if (xzPair != null) {
-                            kbX += xzPair.getX().floatValue();
-                            kbZ += xzPair.getY().floatValue();
+                            kbX += xzPair.getX();
+                            kbZ += xzPair.getY();
                         }
 
                         double deltaX = data.deltas.deltaX - kbX;
@@ -291,7 +291,7 @@ public final class NMSValueParser {
         double ogX = kbX;
         double ogZ = kbZ;
 
-        for(int j = 0; ++j <= data.getAttacks(); ogZ = kbZ) {
+        for (int j = 0; ++j <= data.getAttacks(); ogZ = kbZ) {
             ogX *= 0.6;
             ogZ *= 0.6;
             Pair<Double, Double> dataX = loopKeysGetKeys(data, ogX, ogZ);

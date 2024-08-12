@@ -1,16 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.Chunk
- *  org.bukkit.event.EventHandler
- *  org.bukkit.event.EventPriority
- *  org.bukkit.event.Listener
- *  org.bukkit.event.world.ChunkLoadEvent
- *  org.bukkit.event.world.ChunkUnloadEvent
- *  org.bukkit.event.world.WorldLoadEvent
- *  org.bukkit.event.world.WorldUnloadEvent
- */
 package me.liwk.karhu.world.chunk;
 
 import me.liwk.karhu.Karhu;
@@ -23,31 +10,36 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
-public final class ChunkListeners
-implements Listener {
-    @EventHandler(priority=EventPriority.LOWEST)
-    public void onChunkLoad(ChunkLoadEvent e) {
-        Karhu.getInstance().getChunkManager().onChunkLoad(e.getChunk());
-    }
+public final class ChunkListeners implements Listener {
+   @EventHandler(
+      priority = EventPriority.LOWEST
+   )
+   public void onChunkLoad(ChunkLoadEvent e) {
+      Karhu.getInstance().getChunkManager().onChunkLoad(e.getChunk());
+   }
 
-    @EventHandler(priority=EventPriority.LOWEST)
-    public void onChunkUnload(ChunkUnloadEvent e) {
-        Karhu.getInstance().getChunkManager().onChunkUnload(e.getChunk());
-    }
+   @EventHandler(
+      priority = EventPriority.LOWEST
+   )
+   public void onChunkUnload(ChunkUnloadEvent e) {
+      Karhu.getInstance().getChunkManager().onChunkUnload(e.getChunk());
+   }
 
-    @EventHandler(priority=EventPriority.MONITOR)
-    public void onWorldUnload(WorldUnloadEvent e) {
-        if (!e.isCancelled()) {
-            Karhu.getInstance().getChunkManager().removeWorld(e.getWorld());
-        }
-    }
+   @EventHandler(
+      priority = EventPriority.MONITOR
+   )
+   public void onWorldUnload(WorldUnloadEvent e) {
+      if (!e.isCancelled()) {
+         Karhu.getInstance().getChunkManager().removeWorld(e.getWorld());
+      }
+   }
 
-    @EventHandler
-    public void onWorldLoad(WorldLoadEvent e) {
-        Karhu.getInstance().getChunkManager().addWorld(e.getWorld());
-        for (Chunk chunk : e.getWorld().getLoadedChunks()) {
-            Karhu.getInstance().getChunkManager().onChunkLoad(chunk);
-        }
-    }
+   @EventHandler
+   public void onWorldLoad(WorldLoadEvent e) {
+      Karhu.getInstance().getChunkManager().addWorld(e.getWorld());
+
+      for(Chunk chunk : e.getWorld().getLoadedChunks()) {
+         Karhu.getInstance().getChunkManager().onChunkLoad(chunk);
+      }
+   }
 }
-

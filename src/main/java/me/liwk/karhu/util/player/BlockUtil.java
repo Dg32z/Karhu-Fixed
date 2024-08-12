@@ -1,14 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.Chunk
- *  org.bukkit.Location
- *  org.bukkit.Material
- *  org.bukkit.World
- *  org.bukkit.block.Block
- *  org.bukkit.util.Vector
- */
 package me.liwk.karhu.util.player;
 
 import me.liwk.karhu.Karhu;
@@ -31,27 +20,17 @@ public final class BlockUtil {
     }
 
     public static boolean chunkLoaded(World w, int x, int z) {
-        Location loc = new Location(w, (double)x, 0.0, (double)z);
-        return BlockUtil.chunkLoaded(loc);
+        Location loc = new Location(w, x, 0.0, z);
+        return chunkLoaded(loc);
     }
 
     public static Vector getBlockBounds(Material material) {
-        if (MaterialChecks.BED.contains(material)) {
-            return new Vector(1.0f, 0.5625f, 1.0f);
-        }
-        if (MaterialChecks.FENCES.contains(material)) {
-            return new Vector(1.0f, 1.5f, 1.0f);
-        }
-        if (MaterialChecks.CLIMBABLE.contains(material)) {
-            return new Vector(0.8625f, 1.0f, 0.8625f);
-        }
-        if (MaterialChecks.CARPETS.contains(material)) {
-            return new Vector(1.0f, 0.0625f, 1.0f);
-        }
-        if (MaterialChecks.HALFS.contains(material)) {
-            return new Vector(1.0f, 0.5f, 1.0f);
-        }
-        return MaterialChecks.PORTAL.contains(material) ? new Vector(1.0f, 0.8125f, 1.0f) : new Vector(1.0f, 1.0f, 1.0f);
+        if (MaterialChecks.BED.contains(material)) return new Vector(1.0F, 0.5625F, 1.0F);
+        if (MaterialChecks.FENCES.contains(material)) return new Vector(1.0F, 1.5F, 1.0F);
+        if (MaterialChecks.CLIMBABLE.contains(material)) return new Vector(0.8625F, 1.0F, 0.8625F);
+        if (MaterialChecks.CARPETS.contains(material)) return new Vector(1.0F, 0.0625F, 1.0F);
+        if (MaterialChecks.HALFS.contains(material)) return new Vector(1.0F, 0.5F, 1.0F);
+        return MaterialChecks.PORTAL.contains(material) ? new Vector(1.0F, 0.8125F, 1.0F) : new Vector(1.0F, 1.0F, 1.0F);
     }
 
     public static void getTileEntitiesSync(BoundingBox box, Consumer<List<Block>> listConsumer) {
@@ -59,15 +38,14 @@ public final class BlockUtil {
     }
 
     public static long getChunkPair(Chunk chunk) {
-        return (long)chunk.getX() << 32 | (long)chunk.getZ() & 0xFFFFFFFFL;
+        return (long) chunk.getX() << 32 | (long) chunk.getZ() & 4294967295L;
     }
 
     public static long getChunkPair(int x, int z) {
-        return ((long)x & 0xFFFFFFFFL) << 32 | (long)z & 0xFFFFFFFFL;
+        return ((long) x & 4294967295L) << 32 | (long) z & 4294967295L;
     }
 
     public static long getChunkPair(Location location) {
-        return (long)(location.getBlockX() >> 4) << 32 | (long)(location.getBlockZ() >> 4) & 0xFFFFFFFFL;
+        return (long) (location.getBlockX() >> 4) << 32 | (long) (location.getBlockZ() >> 4) & 4294967295L;
     }
 }
-

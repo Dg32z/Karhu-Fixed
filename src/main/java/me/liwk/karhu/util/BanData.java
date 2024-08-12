@@ -1,13 +1,9 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.entity.Player
- */
 package me.liwk.karhu.util;
 
+import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 
+@AllArgsConstructor
 public final class BanData {
     public String license;
     public String karhuVer;
@@ -21,20 +17,4 @@ public final class BanData {
     public String coordinates;
     public long ping;
     public String logLink;
-
-    public BanData(String license, String karhuVer, String serverVer, double tps, Player playerObj, String player, String type, String client, String sessionTime, String coordinates, long ping, String logLink) {
-        this.license = license;
-        this.karhuVer = karhuVer;
-        this.serverVer = serverVer;
-        this.tps = tps;
-        this.playerObj = playerObj;
-        this.player = player;
-        this.type = type;
-        this.client = client;
-        this.sessionTime = sessionTime;
-        this.coordinates = coordinates;
-        this.ping = ping;
-        this.logLink = logLink;
-    }
 }
-

@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package me.liwk.karhu.database.sqlite;
 
 import lombok.SneakyThrows;
@@ -21,8 +18,7 @@ public class SQLite {
             conn = DriverManager.getConnection(url);
             Query.use(conn);
             Karhu.getInstance().printCool("&b> &aConnection to SQLite has been established.");
-        }
-        catch (Exception var1) {
+        } catch (Exception var1) {
             Karhu.getInstance().printCool("&b> &cConnection to SQLite has failed.");
             var1.printStackTrace();
         }
@@ -37,4 +33,3 @@ public class SQLite {
         }
     }
 }
-

@@ -201,4 +201,5 @@ mongo:
         enabled: false
         username: 'Karhu'
         password: 'karhubest'
+        database: 'Karhu'
    

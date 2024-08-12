@@ -1,43 +1,36 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.util.Vector
- */
 package me.liwk.karhu.util.pending;
 
 import org.bukkit.util.Vector;
 
 public class VelocityPending {
-    private boolean markedSent;
-    private final short id;
-    private final Vector velocity;
-    private final boolean kohi;
+   private boolean markedSent;
+   private final short id;
+   private final Vector velocity;
+   private final boolean kohi;
 
-    public void markSent() {
-        this.markedSent = true;
-    }
+   public void markSent() {
+      this.markedSent = true;
+   }
 
-    public VelocityPending(short id, Vector velocity, boolean kohi) {
-        this.id = id;
-        this.velocity = velocity;
-        this.kohi = kohi;
-    }
+   public VelocityPending(short id, Vector velocity, boolean kohi) {
+      this.id = id;
+      this.velocity = velocity;
+      this.kohi = kohi;
+   }
 
-    public boolean isMarkedSent() {
-        return this.markedSent;
-    }
+   public boolean isMarkedSent() {
+      return this.markedSent;
+   }
 
-    public short getId() {
-        return this.id;
-    }
+   public short getId() {
+      return this.id;
+   }
 
-    public Vector getVelocity() {
-        return this.velocity;
-    }
+   public Vector getVelocity() {
+      return this.velocity;
+   }
 
-    public boolean isKohi() {
-        return this.kohi;
-    }
+   public boolean isKohi() {
+      return this.kohi;
+   }
 }
-

@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package me.liwk.karhu.world.nms.wrap;
 
 public abstract class WrappedEntity {
@@ -12,4 +9,3 @@ public abstract class WrappedEntity {
         this.w = width;
     }
 }
-

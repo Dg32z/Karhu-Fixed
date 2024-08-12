@@ -13,7 +13,6 @@ import me.liwk.karhu.util.MathUtil;
 import me.liwk.karhu.util.NetUtil;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,7 +22,6 @@ public class MySQLStorage implements Storage {
     private ConcurrentLinkedQueue<BanX> bans = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<BanWaveX> banWaveQueue = new ConcurrentLinkedQueue<>();
 
-    @SneakyThrows
     @Override
     public void init() {
         MySQL.init();
@@ -67,18 +65,14 @@ public class MySQLStorage implements Storage {
                                 if (!this.bans.isEmpty()) {
                                     for (BanX ban : this.bans) {
                                         MySQL.use();
-                                        try {
-                                            Query.prepare("INSERT INTO `BANS` (`UUID`, `MODULE`, `TIME`, `EXTRA`, `PING`, `TPS`) VALUES (?,?,?,?,?,?)")
-                                                    .append(ban.player)
-                                                    .append(ban.type)
-                                                    .append(ban.time)
-                                                    .append(ban.data)
-                                                    .append(ban.ping)
-                                                    .append(ban.TPS)
-                                                    .execute();
-                                        } catch (SQLException e) {
-                                            throw new RuntimeException(e);
-                                        }
+                                        Query.prepare("INSERT INTO `BANS` (`UUID`, `MODULE`, `TIME`, `EXTRA`, `PING`, `TPS`) VALUES (?,?,?,?,?,?)")
+                                                .append(ban.player)
+                                                .append(ban.type)
+                                                .append(ban.time)
+                                                .append(ban.data)
+                                                .append(ban.ping)
+                                                .append(ban.TPS)
+                                                .execute();
                                     }
 
                                     this.bans.clear();
@@ -87,16 +81,12 @@ public class MySQLStorage implements Storage {
                                 if (!this.banWaveQueue.isEmpty()) {
                                     for (BanWaveX wave : this.banWaveQueue) {
                                         MySQL.use();
-                                        try {
-                                            Query.prepare("INSERT INTO `BANWAVE` (`UUID`, `MODULE`, `TIME`, `TOTALLOGS`) VALUES (?,?,?,?)")
-                                                    .append(wave.player)
-                                                    .append(wave.type)
-                                                    .append(wave.time)
-                                                    .append(wave.totalLogs)
-                                                    .execute();
-                                        } catch (SQLException e) {
-                                            throw new RuntimeException(e);
-                                        }
+                                        Query.prepare("INSERT INTO `BANWAVE` (`UUID`, `MODULE`, `TIME`, `TOTALLOGS`) VALUES (?,?,?,?)")
+                                                .append(wave.player)
+                                                .append(wave.type)
+                                                .append(wave.time)
+                                                .append(wave.totalLogs)
+                                                .execute();
                                     }
 
                                     this.banWaveQueue.clear();
