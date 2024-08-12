@@ -342,7 +342,7 @@ extends JavaPlugin {
     }
 
     public String getBuild() {
-        return "240630";
+        return "240812";
     }
 
     public boolean isViaRewind() {

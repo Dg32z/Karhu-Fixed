@@ -226,7 +226,7 @@ public class MongoStorage implements Storage {
 
    @Override
    public boolean isInBanwave(String uuid) {
-      BanWaveX bw = (BanWaveX)this.loggedBanwavePlayers.find(Filters.eq("player", uuid)).first();
+      BanWaveX bw = this.loggedBanwavePlayers.find(Filters.eq("player", uuid)).first();
       return bw != null;
    }
 
